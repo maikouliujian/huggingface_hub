@@ -984,7 +984,7 @@ def hf_hub_download(
                 "as`local_dir`.\n"
                 "For more details, check out https://huggingface.co/docs/huggingface_hub/main/en/guides/download#download-files-to-local-folder."
             )
-
+        # todo
         return _hf_hub_download_to_local_dir(
             # Destination
             local_dir=local_dir,
@@ -1068,6 +1068,7 @@ def _hf_hub_download_to_cache_dir(
 
     # Try to get metadata (etag, commit_hash, url, size) from the server.
     # If we can't, a HEAD request error is returned.
+    # todo 获取url_to_download
     (url_to_download, etag, commit_hash, expected_size, xet_file_data, head_call_error) = _get_metadata_or_catch_error(
         repo_id=repo_id,
         filename=filename,
@@ -1167,6 +1168,7 @@ def _hf_hub_download_to_cache_dir(
 
     with WeakFileLock(lock_path):
         _download_to_tmp_and_move(
+            # todo 未完成下载的目录
             incomplete_path=Path(blob_path + ".incomplete"),
             destination_path=Path(blob_path),
             url_to_download=url_to_download,
@@ -1706,6 +1708,7 @@ def _download_to_tmp_and_move(
 
     with incomplete_path.open("ab") as f:
         resume_size = f.tell()
+        # todo 1、开始下载
         message = f"Downloading '{filename}' to '{incomplete_path}'"
         if resume_size > 0 and expected_size is not None:
             message += f" (resume from {resume_size}/{expected_size})"
@@ -1741,7 +1744,7 @@ def _download_to_tmp_and_move(
                 headers=headers,
                 expected_size=expected_size,
             )
-
+    # todo 2、文件下载完后，移动文件从临时目录到正式目录下
     logger.info(f"Download complete. Moving file to {destination_path}")
     _chmod_and_move(incomplete_path, destination_path)
 

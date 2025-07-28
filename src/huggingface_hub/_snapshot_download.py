@@ -281,6 +281,7 @@ def snapshot_download(
 
     if not unreliable_nb_files:
         filtered_repo_files = list(filtered_repo_files)
+        # todo
         tqdm_desc = f"Fetching {len(filtered_repo_files)} files"
     else:
         tqdm_desc = "Fetching ... files"
@@ -303,6 +304,7 @@ def snapshot_download(
     # so no network call happens if we already
     # have the file locally.
     def _inner_hf_hub_download(repo_file: str):
+        # todo 真正下载的逻辑！！！！！！
         return hf_hub_download(
             repo_id,
             filename=repo_file,

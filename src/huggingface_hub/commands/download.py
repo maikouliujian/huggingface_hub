@@ -51,7 +51,7 @@ from ._cli_utils import show_deprecation_warning
 
 logger = logging.get_logger(__name__)
 
-
+# todo 下载文件！！！！！！
 class DownloadCommand(BaseHuggingfaceCLICommand):
     @staticmethod
     def register_subcommand(parser: _SubParsersAction):
